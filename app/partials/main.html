@@ -1,30 +1,47 @@
-<div class="row">
+<div class="row" id="booking_calendar">
   <div class="col-md-12">
     <div ui-calendar="uiConfig.calendar" ng-model="eventSources" calendar="currentCalendar"></div>
   </div>
 </div>
 
-<div class="row">
-  <div class="col-md-6">
-    <p class="input-group">
-      <input type="text"
-            class="form-control"
-            datepicker-popup="{{dateFormat}}"
-            ng-model="bookingDate"
-            is-open="opened"
-            min-date="minDate"
-            max-date="maxDate"
-            datepicker-options="dateOptions"
-            date-disabled="disabled(date, mode)"
-            ng-required="true"
-            close-text="Close" />
-      <span class="input-group-btn">
-        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-      </span>
-    </p>
-    <timepicker ng-model="bookingTime" ng-change="timeChanged()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+<div class="row" id="booking_Form">
+  <div class="col-md-12">
+    <form role="form" ng-submit="submitBooking()">
+      <div class="form-group col-md-6">
+        <label for="booking_date">Booking Date</label>
+        <p class="input-group">
+          <input type="text"
+                class="form-control"
+                datepicker-popup="{{dateFormat}}"
+                ng-model="bookingDate"
+                is-open="opened"
+                min-date="minDate"
+                max-date="maxDate"
+                datepicker-options="dateOptions"
+                date-disabled="disabled(date, mode)"
+                ng-required="true"
+                close-text="Close" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+        <label for="booking_time">Booking Time</label>
+        <timepicker ng-model="bookingTime" ng-change="timeChanged()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="booking_reason">Booking Reason</label>
+        <textarea class="form-control" rows="3" ng-modle="bookingReason"></textarea>
+        <label for="booking_person">Booking Organization</label>
+        <input type="text" class="form-control" ng-modle="bookingPerson" placeholder="Enter Organization Name">
+      </div>
+      <button type="submit" id="bookingBtn" class="btn btn-default">Submit</button>
+    </form>
+
+
   </div>
-  <div class="col-md-4">
-    Booking Church At: {{bookingTime | date:'shortTime'}} {{bookingDate | date: 'dd-MM-yyyy'}}
-  </div>
+</div>
+
+
+<div class="row col-md-4">
+  Booking Church At: {{bookingTime | date:'shortTime'}} {{bookingDate | date: 'dd-MM-yyyy'}}
 </div>

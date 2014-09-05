@@ -60,6 +60,10 @@ angular.module('booking')
       console.log('Time changed to: ' + $scope.bookingTime);
     };
 
+    $scope.submitBooking = function(){
+      
+    }
+
     $scope.dateOptions = {
       formatYear: 'yy',
       startingDay: 1
