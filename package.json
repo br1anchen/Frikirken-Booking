@@ -1,9 +1,13 @@
 {
   "name": "booking",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "dependencies": {},
   "devDependencies": {
+    "body-parser": "^1.8.0",
     "browser-sync": "^1.3",
+    "errorhandler": "^1.2.0",
+    "expect.js": "^0.3.1",
+    "express": "4.x",
     "gulp": "^3.6.0",
     "gulp-autoprefixer": "^0.0.6",
     "gulp-cache": "^0.2",
@@ -33,8 +37,13 @@
     "karma-jasmine": "^0.1.5",
     "karma-phantomjs-launcher": "^0.1.4",
     "main-bower-files": "^1.0",
+    "mocha": "^1.21.4",
+    "mongoskin": "^1.4.4",
+    "morgan": "^1.3.0",
+    "multer": "^0.1.4",
     "protractor": "^1.0.0",
     "require-dir": "^0.1",
+    "superagent": "^0.18.2",
     "uglify-save-license": "^0.4.1",
     "wiredep": "^1.4.3"
   },
