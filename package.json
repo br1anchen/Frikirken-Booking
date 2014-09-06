@@ -94,10 +94,5 @@
   },
   "engines": {
     "node": ">=0.10.0"
-  },
-  "scripts": {
-    "start": "node server.js",
-    "test": "mocha",
-    "postinstall": "bower install"
   }
 }
