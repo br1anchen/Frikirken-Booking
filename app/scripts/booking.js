@@ -3,7 +3,8 @@
 angular.module('booking', [
                 'ngRoute',
 								'ui.bootstrap',
-								'ui.calendar',])
+								'ui.calendar',
+                'angularMoment'])
     .config(function ($routeProvider) {
 	    $routeProvider
 	      .when('/', {

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('booking')
-  .controller('MainCtrl', function ($scope) {
+  .controller('MainCtrl', function ($scope,moment) {
     $scope.uiConfig = {
         calendar:{
           height: 450,
@@ -17,8 +17,6 @@ angular.module('booking')
           eventResize: $scope.alertOnResize
         }
       };
-
-    $scope.eventSources = [];
 
     $scope.today = function() {
       $scope.bookingDate = new Date();
@@ -45,10 +43,6 @@ angular.module('booking')
       $scope.opened = true;
     };
 
-    $scope.toggleMode = function() {
-      $scope.ismeridian = ! $scope.ismeridian;
-    };
-
     $scope.update = function() {
       var d = new Date();
       d.setHours( 14 );
@@ -56,12 +50,49 @@ angular.module('booking')
       $scope.mytime = d;
     };
 
-    $scope.timeChanged = function () {
-      console.log('Time changed to: ' + $scope.bookingTime);
+    $scope.timeChanged = function (which,time) {
+      console.log(which + 'Time changed to: ' + time);
     };
 
-    $scope.submitBooking = function(){
-      
+    $scope.changeBookingArea = function(area){
+
+      var removeEventSource = area === 'FirstFloor'? $scope.secondFloorEvents : $scope.firstFloorEvents;
+      var targetEventSource = area === 'FirstFloor'? $scope.firstFloorEvents : $scope.secondFloorEvents;
+
+      angular.forEach($scope.eventSources,function(value, key){
+        if($scope.eventSources[key] === removeEventSource){
+          $scope.eventSources.splice(key,1);
+        }
+      });
+
+      if($scope.eventSources.length === 0){
+        $scope.eventSources.push(targetEventSource);
+      }
+    };
+
+    $scope.submitBooking = function(area){
+      var newEvent = factoryBookingEvent(
+        $scope.bookingPerson + ' Booking for ' + $scope.bookingReason,
+        moment($scope.bookingDate).set('hour', $scope.bookingStartTime.getHours()).set('minute', $scope.bookingStartTime.getMinutes()).toDate(),
+        moment($scope.bookingDate).set('hour', $scope.bookingEndTime.getHours()).set('minute', $scope.bookingEndTime.getMinutes()).toDate(),
+        []
+      );
+
+      if(area === 'FirstFloor'){
+        $scope.firstFloorEvents.push(newEvent);
+      }else if(area === 'SecondFloor'){
+        $scope.secondFloorEvents.push(newEvent);
+      }
+    };
+
+    function factoryBookingEvent(title,startDateTime,endDateTime,cssClasses){
+      return {
+        title: title,
+        start: startDateTime,
+        end: endDateTime,
+        className: cssClasses,
+        allDay: false
+      };
     }
 
     $scope.dateOptions = {
@@ -73,7 +104,20 @@ angular.module('booking')
 
     $scope.hstep = 1;
     $scope.mstep = 5;
-    $scope.ismeridian = true;
+    $scope.ismeridian = false;
+    $scope.bookingStartTime = new Date();
+    $scope.bookingEndTime = new Date();
+
+    $scope.firstFloorEvents = [{
+        title: 'Demo',
+        start: new Date(2014, 8, 6, 16, 0),
+        end: new Date(2014, 8, 6, 19, 0),
+        className: [],
+        allDay: false
+    }];
+    $scope.secondFloorEvents = [];
+    $scope.bookingArea = 'FirstFloor';
+    $scope.eventSources = [$scope.firstFloorEvents,$scope.secondFloorEvents];
 
     $scope.today();
     $scope.toggleMin();

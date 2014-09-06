@@ -6,7 +6,7 @@
 
 <div class="row" id="booking_Form">
   <div class="col-md-12">
-    <form role="form" ng-submit="submitBooking()">
+    <form role="form" ng-submit="submitBooking(bookingArea)">
       <div class="form-group col-md-6">
         <label for="booking_date">Booking Date</label>
         <p class="input-group">
@@ -25,14 +25,24 @@
             <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
         </p>
-        <label for="booking_time">Booking Time</label>
-        <timepicker ng-model="bookingTime" ng-change="timeChanged()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+        <div class="col-md-3">
+          <label for="booking_time">Booking Start Time</label>
+          <timepicker ng-model="bookingStartTime" ng-change="timeChanged('Start',bookingStartTime)" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+        </div>
+        <div class="col-md-3">
+          <label for="booking_time">Booking End Time</label>
+          <timepicker ng-model="bookingEndTime" ng-change="timeChanged('End',bookingEndTime)" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+        </div>
       </div>
       <div class="form-group col-md-6">
         <label for="booking_reason">Booking Reason</label>
-        <textarea class="form-control" rows="3" ng-modle="bookingReason"></textarea>
+        <textarea class="form-control" rows="3" ng-model="bookingReason"></textarea>
         <label for="booking_person">Booking Organization</label>
-        <input type="text" class="form-control" ng-modle="bookingPerson" placeholder="Enter Organization Name">
+        <input type="text" class="form-control" ng-model="bookingPerson" placeholder="Enter Organization Name">
+      </div>
+      <div class="btn-group">
+        <label class="btn btn-success" ng-change='changeBookingArea(bookingArea)' ng-model="bookingArea" btn-radio="'FirstFloor'">FirstFloor</label>
+        <label class="btn btn-success" ng-change='changeBookingArea(bookingArea)' ng-model="bookingArea" btn-radio="'SecondFloor'">SecondFloor</label>
       </div>
       <button type="submit" id="bookingBtn" class="btn btn-default">Submit</button>
     </form>
@@ -43,5 +53,5 @@
 
 
 <div class="row col-md-4">
-  Booking Church At: {{bookingTime | date:'shortTime'}} {{bookingDate | date: 'dd-MM-yyyy'}}
+  Booking Church {{bookingArea}} From: {{bookingStartTime | date:'shortTime'}} {{bookingDate | date: 'dd-MM-yyyy'}} To: {{bookingEndTime | date:'shortTime'}} {{bookingDate | date: 'dd-MM-yyyy'}}
 </div>
