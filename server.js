@@ -14,7 +14,7 @@ app.set('port', process.env.PORT || 5000);
 app.use(logger('dev'));
 app.use(bodyParser());
 app.use(multer());
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, 'app')));
 
 // development only
 if ('development' == app.get('env')) {
